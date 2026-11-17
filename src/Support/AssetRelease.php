@@ -72,6 +72,10 @@ final class AssetRelease
 
     public static function resolveVersionedPath(string $path): ?string
     {
+        $basePath = Config::basePath();
+        if ($basePath !== '' && str_starts_with($path, $basePath . '/')) {
+            $path = substr($path, strlen($basePath));
+        }
         if (!self::isVersionedAssetRequest($path)) {
             return null;
         }
