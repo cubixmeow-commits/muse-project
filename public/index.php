@@ -56,6 +56,37 @@ if (AssetRelease::isVersionedAssetRequest($request->path)) {
     }
 }
 
+// Plain static assets under public/assets (images, vendor scripts, data):
+// hosts whose rewrite layer cannot map them to files get them from here
+// instead. In dev, public/router.php + the built-in server do this.
+if (str_starts_with($request->path, '/assets/') && !str_contains($request->path, '..')) {
+    $assetFile = Config::root() . '/public' . $request->path;
+    if (is_file($assetFile)) {
+        $ext = strtolower(pathinfo($assetFile, PATHINFO_EXTENSION));
+        $types = [
+            'css' => 'text/css; charset=utf-8',
+            'js' => 'application/javascript; charset=utf-8',
+            'svg' => 'image/svg+xml',
+            'png' => 'image/png',
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'webp' => 'image/webp',
+            'gif' => 'image/gif',
+            'ico' => 'image/x-icon',
+            'json' => 'application/json; charset=utf-8',
+            'woff' => 'font/woff',
+            'woff2' => 'font/woff2',
+            'mp4' => 'video/mp4',
+        ];
+        if (isset($types[$ext])) {
+            header('Content-Type: ' . $types[$ext]);
+        }
+        header('Cache-Control: public, max-age=86400');
+        readfile($assetFile);
+        return;
+    }
+}
+
 $router = new Router();
 ApiV1::register($router);
 ExploreApi::register($router);
