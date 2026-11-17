@@ -112,7 +112,7 @@ final class AccountService
 
     public static function completePasswordReset(string $rawToken, string $password): void
     {
-        if (strlen($password) < 10) {
+        if (strlen($password) < 4) {
             throw new \InvalidArgumentException('password_too_short');
         }
         $token = Database::one(

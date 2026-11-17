@@ -20,7 +20,7 @@
     </label>
     <label>
       <span>Password</span>
-      <input type="password" name="password" autocomplete="current-password" required minlength="10">
+      <input type="password" name="password" autocomplete="current-password" required minlength="4">
     </label>
     <button class="btn btn--secondary" type="submit">Sign in with password</button>
     <p class="status" data-password-status role="status" aria-live="polite"></p>

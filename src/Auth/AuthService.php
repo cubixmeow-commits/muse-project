@@ -112,7 +112,7 @@ final class AuthService
 
     public static function setPassword(int $userId, string $password): void
     {
-        if (strlen($password) < 10) {
+        if (strlen($password) < 4) {
             throw new \InvalidArgumentException('password_too_short');
         }
         Database::exec(

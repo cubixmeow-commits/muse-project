@@ -26,7 +26,7 @@
     <h2>Optional password</h2>
     <label>
       <span>New password</span>
-      <input type="password" name="password" minlength="10" required autocomplete="new-password">
+      <input type="password" name="password" minlength="4" required autocomplete="new-password">
     </label>
     <button class="btn btn--secondary" type="submit">Save password</button>
   </form>

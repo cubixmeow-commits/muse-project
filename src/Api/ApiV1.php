@@ -102,7 +102,7 @@ final class ApiV1
                 AuthService::setPassword((int) $session['user_id'], (string) $request->input('password', ''));
                 JsonResponse::data(['updated' => true]);
             } catch (\InvalidArgumentException $e) {
-                JsonResponse::error('password_too_short', 'Use at least 10 characters.', 422);
+                JsonResponse::error('password_too_short', 'Use at least 4 characters.', 422);
             }
         });
 
