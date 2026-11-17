@@ -1,0 +1,62 @@
+{
+  "version": "round-013.3",
+  "requestLog": {
+    "exploreDirections": [
+      1788329051593
+    ],
+    "summary": [
+      1788329050377
+    ],
+    "generationJobs": [
+      1788329049223
+    ]
+  },
+  "readyState": {
+    "barHidden": false,
+    "barDisplay": "flex",
+    "buttonDisabled": false,
+    "statusText": "“Static Revolt” is ready for review.",
+    "createState": {
+      "prepared": true,
+      "path": "ai-quick",
+      "hidden": false,
+      "display": "block",
+      "hint": "",
+      "disabled": false,
+      "reviewed": true,
+      "pending": false
+    }
+  },
+  "failState": {
+    "barHidden": true,
+    "barDisplay": "none",
+    "buttonDisabled": false,
+    "statusText": "Choose a style.",
+    "createState": {
+      "prepared": false,
+      "path": null,
+      "hidden": true,
+      "display": "none",
+      "hint": "",
+      "disabled": false,
+      "reviewed": false,
+      "pending": false
+    }
+  },
+  "exploreState": {
+    "barHidden": true,
+    "barDisplay": "none",
+    "buttonDisabled": false,
+    "statusText": "Choose the direction that feels right.",
+    "createState": {
+      "prepared": false,
+      "path": null,
+      "hidden": true,
+      "display": "none",
+      "hint": "",
+      "disabled": false,
+      "reviewed": false,
+      "pending": false
+    }
+  }
+}
