@@ -1602,12 +1602,14 @@
       }
     });
 
-    if (window.__YATSN_SIGNIN_TOKEN__) {
-      const status = $('[data-complete-status]');
+    const completeStatus = $('[data-complete-status]');
+    const completeToken = completeStatus?.dataset.signinToken || window.__YATSN_SIGNIN_TOKEN__;
+    if (completeToken) {
+      const status = completeStatus;
       try {
         await api('/api/v1/auth/magic-links/complete', {
           method: 'POST',
-          body: { token: window.__YATSN_SIGNIN_TOKEN__ },
+          body: { token: completeToken },
         });
         window.location.href = BASE_PATH + '/create';
       } catch (err) {
