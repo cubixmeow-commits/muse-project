@@ -62,7 +62,7 @@
 
       const link = document.createElement('a');
       link.className = 'world-carousel__link';
-      link.href = '/showcase';
+      link.href = assetUrl('/showcase');
       link.setAttribute('aria-label', item.alt);
 
       const img = document.createElement('img');

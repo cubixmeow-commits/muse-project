@@ -1242,7 +1242,7 @@
       grid.innerHTML = '';
       res.data.forEach((img) => {
         const a = document.createElement('a');
-        a.href = `/images/${img.id}`;
+        a.href = BASE_PATH + `/images/${img.id}`;
         a.className = 'gallery-item';
         a.innerHTML = `<img src="${img.thumbnailUrl}" alt=""><span>${img.title} · ${img.artist}</span>`;
         grid.appendChild(a);
