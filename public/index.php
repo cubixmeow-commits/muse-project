@@ -10,6 +10,7 @@ use Yatsn\Auth\SessionService;
 use Yatsn\Http\Request;
 use Yatsn\Http\Router;
 use Yatsn\Sharing\GalleryService;
+use Yatsn\Support\AssetRelease;
 use Yatsn\Support\BuildInfo;
 use Yatsn\Support\Config;
 use Yatsn\Support\Database;
@@ -33,6 +34,28 @@ if (Config::get('app.env') === 'development') {
 }
 
 $request = Request::fromGlobals();
+
+// Versioned asset URLs are virtual: resolve them to the real file here so
+// hosts whose rewrite rules cannot map them (the public/.htaccess does it
+// where it is honored) still serve CSS/JS. Mirrors public/router.php.
+if (AssetRelease::isVersionedAssetRequest($request->path)) {
+    $versionedPath = AssetRelease::resolveVersionedPath($request->path);
+    $assetFile = $versionedPath !== null ? Config::root() . '/public' . $versionedPath : null;
+    if ($assetFile !== null && is_file($assetFile)) {
+        AssetRelease::sendImmutableCacheHeaders();
+        $ext = strtolower(pathinfo($assetFile, PATHINFO_EXTENSION));
+        $types = [
+            'css' => 'text/css; charset=utf-8',
+            'js' => 'application/javascript; charset=utf-8',
+        ];
+        if (isset($types[$ext])) {
+            header('Content-Type: ' . $types[$ext]);
+        }
+        readfile($assetFile);
+        return;
+    }
+}
+
 $router = new Router();
 ApiV1::register($router);
 ExploreApi::register($router);
