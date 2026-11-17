@@ -40,7 +40,7 @@ if ($authed) {
     $navItems[] = ['href' => '/sign-in', 'label' => 'Sign in', 'icon' => 'signin'];
 }
 
-$bodyClass = trim(($layoutClass ?? '') . ($isHome ? ' is-home' : '') . ($authed ? ' is-authed' : ' is-guest') . ($path === '/create' ? ' is-create-focus' : ''));
+$bodyClass = trim(($layoutClass ?? '') . ($isHome ? ' is-home' : '') . ($authed ? ' is-authed' : ' is-guest') . ($path === '/create' ? ' is-create-focus' : '') . (str_starts_with($path, '/shared') ? ' is-shared' : '') . (str_starts_with($path, '/images') ? ' is-image' : ''));
 ?>
 <!DOCTYPE html>
 <html lang="en">
