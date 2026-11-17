@@ -43,11 +43,14 @@ all gates closed: no public registration, no live payments, AI providers off).
 ## Worker cron (set in cPanel by Noa)
 
 ```
-php /home/iainmcok/public_html/museproject/worker/run.php
+php /home/iainmcok/public_html/museproject/worker/run-loop.php
 ```
 
-every minute. Until it exists, development mode also processes the next
-generation job inline while the UI polls job status.
+every 5 minutes (this hosting plan's cron minimum). run-loop.php keeps
+processing for up to 240 seconds per run, exits early once the queue has
+been idle 30 seconds, and holds an flock so runs never overlap. Until the
+cron exists, development mode also processes the next generation job
+inline while the UI polls job status.
 
 ## Still to do after first deploy
 
@@ -55,3 +58,12 @@ generation job inline while the UI polls job status.
   OWNER_PASSWORD set in the server .env.
 - When AI keys are added to .env, set AI_PROVIDERS_ENABLED=true and the
   monthly budget deliberately.
+
+## Host quirks learned 2026-11-16
+
+- The host's malware scanner quarantines PHP scripts that shell out
+  (shell_exec with curl/git/nohup reads as a webshell). deploy-song.php
+  was rewritten to use only PHP-native calls (streams for downloads,
+  AuthService for owner seeding) and now persists. Keep it that way.
+- The setup form for SMTP (hello@iainreid.dev) and the owner account
+  lives in deploy-song.php at ?setup=KEY.
