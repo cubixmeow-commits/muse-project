@@ -25,3 +25,4 @@ development-vault/.trash/
 /var/tmp/
 /private/
 /public/uploads/
+deploy-key.txt
