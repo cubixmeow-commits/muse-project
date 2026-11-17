@@ -553,8 +553,12 @@ dialog.confirm-sheet::backdrop { background: rgba(5, 4, 3, 0.7); backdrop-filter
 .reveal { max-width: 860px; margin: 0 auto; text-align: center; }
 .reveal__figure { margin: 1.6rem 0; }
 .reveal__figure img {
-  max-width: min(680px, 100%); border-radius: var(--radius-lg);
+  width: auto; height: auto;
+  max-width: min(680px, 100%); max-height: 78svh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--line); box-shadow: var(--shadow);
+  background: var(--bg0);
 }
 .reveal .action-row { justify-content: center; margin-bottom: 1.6rem; }
 .narrow-form { max-width: 420px; margin: 0 auto; text-align: left; }
