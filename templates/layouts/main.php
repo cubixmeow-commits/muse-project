@@ -9,6 +9,12 @@ $isHome = !empty($isHome);
 $authed = !empty($session);
 $isOwner = $authed && (($session['role'] ?? '') === 'owner');
 $path = (string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
+$basePath = \Yatsn\Support\Config::basePath();
+if ($basePath !== '' && str_starts_with($path, $basePath . '/')) {
+    $path = substr($path, strlen($basePath));
+} elseif ($basePath !== '' && $path === $basePath) {
+    $path = '/';
+}
 $componentLab = !empty($componentLab);
 $showcaseScripts = $showcaseScripts ?? [];
 $showcaseHero = $showcaseHero ?? null;

@@ -54,7 +54,7 @@ set_exception_handler(static function (Throwable $e): void {
     }
 
     $wantsJson = str_contains($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json')
-        || str_starts_with($_SERVER['REQUEST_URI'] ?? '', '/api/');
+        || str_contains($_SERVER['REQUEST_URI'] ?? '', '/api/');
 
     http_response_code(500);
     if ($wantsJson) {
