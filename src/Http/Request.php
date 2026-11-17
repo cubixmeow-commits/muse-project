@@ -27,6 +27,14 @@ final class Request
         $uri = $_SERVER['REQUEST_URI'] ?? '/';
         $path = parse_url($uri, PHP_URL_PATH) ?: '/';
         $path = rawurldecode($path);
+        $basePath = \Yatsn\Support\Config::basePath();
+        if ($basePath !== '') {
+            if ($path === $basePath) {
+                $path = '/';
+            } elseif (str_starts_with($path, $basePath . '/')) {
+                $path = substr($path, strlen($basePath));
+            }
+        }
 
         $headers = [];
         foreach ($_SERVER as $key => $value) {

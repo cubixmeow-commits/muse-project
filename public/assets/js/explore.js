@@ -1,5 +1,12 @@
 (() => {
   if (!document.querySelector('[data-create]')) return;
+  const BASE_PATH = (() => {
+    const src = document.currentScript && document.currentScript.src;
+    if (!src) return '';
+    const p = new URL(src).pathname;
+    const i = p.indexOf('/assets/');
+    return i > 0 ? p.slice(0, i) : '';
+  })();
 
   let latestSongDna = null;
   let latestLookupLabel = '';
@@ -247,7 +254,7 @@
 
     try {
       const root = document.querySelector('[data-create]');
-      const response = await nativeFetch('/api/v1/explore-directions', {
+      const response = await nativeFetch(BASE_PATH + '/api/v1/explore-directions', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {

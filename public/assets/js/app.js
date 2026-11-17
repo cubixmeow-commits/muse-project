@@ -1,4 +1,12 @@
 (() => {
+  // Base path the app is mounted under ('' at domain root, e.g. '/song').
+  const BASE_PATH = (() => {
+    const src = document.currentScript && document.currentScript.src;
+    if (!src) return '';
+    const p = new URL(src).pathname;
+    const i = p.indexOf('/assets/');
+    return i > 0 ? p.slice(0, i) : '';
+  })();
   const state = {
     csrf: null,
     draftId: null,
@@ -81,7 +89,7 @@
     if (options.idempotencyKey) {
       headers['Idempotency-Key'] = options.idempotencyKey;
     }
-    const res = await fetch(path, {
+    const res = await fetch(path.startsWith('/') ? BASE_PATH + path : path, {
       credentials: 'same-origin',
       ...options,
       headers,
@@ -1211,7 +1219,7 @@
       }
     };
     // Kick local worker while polling in development.
-    fetch('/api/v1/health').finally(() => {
+    fetch(BASE_PATH + '/api/v1/health').finally(() => {
       // best-effort: worker is CLI; UI just polls.
       tick();
     });

@@ -1,4 +1,11 @@
 (() => {
+  const BASE_PATH = (() => {
+    const src = document.currentScript && document.currentScript.src;
+    if (!src) return '';
+    const p = new URL(src).pathname;
+    const i = p.indexOf('/assets/');
+    return i > 0 ? p.slice(0, i) : '';
+  })();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function $(sel, root = document) {
@@ -6,7 +13,7 @@
   }
 
   async function loadManifest() {
-    const res = await fetch('/assets/data/v1-showcase.json', { credentials: 'same-origin' });
+    const res = await fetch(BASE_PATH + '/assets/data/v1-showcase.json', { credentials: 'same-origin' });
     if (!res.ok) {
       throw new Error('Failed to load showcase manifest');
     }

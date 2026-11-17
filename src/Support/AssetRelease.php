@@ -44,7 +44,7 @@ final class AssetRelease
             throw new \InvalidArgumentException('Unsupported asset path: ' . $relativePath);
         }
 
-        return '/assets/r/' . self::releaseId($bundle) . '/' . $relativePath;
+        return Config::basePath() . '/assets/r/' . self::releaseId($bundle) . '/' . $relativePath;
     }
 
     public static function releaseId(string $bundle): string

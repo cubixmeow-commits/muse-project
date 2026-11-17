@@ -138,13 +138,13 @@
   --header-h: var(--topbar-h);
 
   /* Asset hooks — see design/ASSET_INTEGRATION_MAP.md */
-  --asset-atmosphere: url("/assets/images/system/app-atmosphere-haze-phone.webp");
-  --asset-launch-mark: url("/assets/images/brand/ys-monogram-flat-platinum.svg");
-  --asset-empty-collection: url("/assets/images/system/empty-collection-still.webp");
-  --asset-session-phone: url("/assets/images/system/creative-session-backdrop-phone.webp");
-  --asset-session-desktop: url("/assets/images/system/creative-session-backdrop-desktop.webp");
-  --asset-paywall-preview-phone: url("/assets/images/system/paywall-world-preview-phone.webp");
-  --asset-paywall-preview-desktop: url("/assets/images/system/paywall-world-preview-desktop.webp");
+  --asset-atmosphere: url("../images/system/app-atmosphere-haze-phone.webp");
+  --asset-launch-mark: url("../images/brand/ys-monogram-flat-platinum.svg");
+  --asset-empty-collection: url("../images/system/empty-collection-still.webp");
+  --asset-session-phone: url("../images/system/creative-session-backdrop-phone.webp");
+  --asset-session-desktop: url("../images/system/creative-session-backdrop-desktop.webp");
+  --asset-paywall-preview-phone: url("../images/system/paywall-world-preview-phone.webp");
+  --asset-paywall-preview-desktop: url("../images/system/paywall-world-preview-desktop.webp");
   --asset-atmosphere-opacity: 1;
   --asset-session-overlay: color-mix(in oklab, var(--color-bg) 88%, transparent);
 }
@@ -454,7 +454,7 @@ a:hover {
 /* Desktop: left rail */
 @media (min-width: 900px) {
   :root {
-    --asset-atmosphere: url("/assets/images/system/app-atmosphere-haze-desktop.webp");
+    --asset-atmosphere: url("../images/system/app-atmosphere-haze-desktop.webp");
   }
 
   body.app {

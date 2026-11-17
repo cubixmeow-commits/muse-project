@@ -16,7 +16,20 @@ final class View
         extract($data, EXTR_SKIP);
         ob_start();
         require $path;
-        return (string) ob_get_clean();
+        $html = (string) ob_get_clean();
+        $basePath = Config::basePath();
+        if ($basePath !== '') {
+            // Templates use root-absolute URLs; prefix them with the mount
+            // path so the app works from a subfolder. The lookahead keeps
+            // already-prefixed URLs (nested renders) untouched.
+            $quoted = preg_quote(ltrim($basePath, '/'), '#');
+            $html = (string) preg_replace(
+                '#(href|src|action)="/(?!/|' . $quoted . '/)#',
+                '$1="' . $basePath . '/',
+                $html
+            );
+        }
+        return $html;
     }
 
     public static function page(string $template, array $data = [], string $layout = 'layouts/main'): string

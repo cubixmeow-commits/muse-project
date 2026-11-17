@@ -37,6 +37,10 @@ function view(string $template, array $data = []): string
 
 function redirect(string $path, int $status = 302): never
 {
+    $basePath = \Yatsn\Support\Config::basePath();
+    if ($basePath !== '' && str_starts_with($path, '/') && !str_starts_with($path, $basePath . '/') && $path !== $basePath) {
+        $path = $basePath . $path;
+    }
     header('Location: ' . $path, true, $status);
     exit;
 }

@@ -17,11 +17,15 @@ final class Config
         $storagePath = self::resolvePath(env_value('PRIVATE_STORAGE_PATH', 'var/storage'));
         $logPath = self::resolvePath(env_value('LOG_PATH', 'var/log'));
 
+        $appUrl = rtrim(env_value('APP_URL', 'http://127.0.0.1:8080') ?? '', '/');
+        $basePath = rtrim((string) (parse_url($appUrl, PHP_URL_PATH) ?? ''), '/');
+
         self::$values = [
             'app' => [
                 'env' => env_value('APP_ENV', 'development'),
                 'debug' => self::toBool(env_value('APP_DEBUG', 'true')),
-                'url' => rtrim(env_value('APP_URL', 'http://127.0.0.1:8080') ?? '', '/'),
+                'url' => $appUrl,
+                'base_path' => $basePath,
                 'key' => env_value('APP_KEY', ''),
                 'timezone' => env_value('APP_TIMEZONE', 'UTC'),
             ],
@@ -113,6 +117,12 @@ final class Config
                 'display_name' => env_value('OWNER_DISPLAY_NAME', 'Owner'),
             ],
         ];
+    }
+
+    /** Base path the app is mounted under ('' at domain root, e.g. '/song' in a subfolder). */
+    public static function basePath(): string
+    {
+        return (string) (self::$values['app']['base_path'] ?? '');
     }
 
     public static function root(): string
