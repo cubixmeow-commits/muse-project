@@ -7,6 +7,7 @@ namespace Yatsn\Sharing;
 use Yatsn\Mail\Mailer;
 use Yatsn\Storage\LocalStorage;
 use Yatsn\Support\Audit;
+use Yatsn\Support\Config;
 use Yatsn\Support\Database;
 
 final class GalleryService
@@ -201,8 +202,8 @@ final class GalleryService
                 'title' => $share['title_label'],
                 'styleName' => $share['style_name'],
                 'orientation' => $share['orientation'],
-                'contentUrl' => '/api/v1/shared/images/' . urlencode($rawToken) . '/content',
-                'downloadUrl' => '/api/v1/shared/images/' . urlencode($rawToken) . '/download',
+                'contentUrl' => Config::basePath() . '/api/v1/shared/images/' . urlencode($rawToken) . '/content',
+                'downloadUrl' => Config::basePath() . '/api/v1/shared/images/' . urlencode($rawToken) . '/download',
             ],
         ];
     }
@@ -243,9 +244,9 @@ final class GalleryService
             'styleName' => $row['style_name'],
             'orientation' => $row['orientation'],
             'quality' => $row['quality'],
-            'thumbnailUrl' => '/api/v1/images/' . $row['public_id'] . '/content?variant=thumb',
-            'contentUrl' => '/api/v1/images/' . $row['public_id'] . '/content',
-            'downloadUrl' => '/api/v1/images/' . $row['public_id'] . '/download',
+            'thumbnailUrl' => Config::basePath() . '/api/v1/images/' . $row['public_id'] . '/content?variant=thumb',
+            'contentUrl' => Config::basePath() . '/api/v1/images/' . $row['public_id'] . '/content',
+            'downloadUrl' => Config::basePath() . '/api/v1/images/' . $row['public_id'] . '/download',
             'shareActive' => $share !== null,
             'createdAt' => $row['created_at'],
         ];

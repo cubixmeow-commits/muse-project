@@ -8,6 +8,9 @@
   })();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Manifest paths are root-absolute; prefix them for subfolder mounts.
+  const assetUrl = (p) => (typeof p === 'string' && p.startsWith('/') ? BASE_PATH + p : p);
+
   function $(sel, root = document) {
     return root.querySelector(sel);
   }
@@ -63,7 +66,7 @@
       link.setAttribute('aria-label', item.alt);
 
       const img = document.createElement('img');
-      img.src = item.thumb;
+      img.src = assetUrl(item.thumb);
       img.width = item.width;
       img.height = item.height;
       img.alt = item.alt;
@@ -224,7 +227,7 @@
       button.setAttribute('aria-label', `Open sample ${index + 1} of ${filteredItems().length}: ${item.alt}`);
 
       const img = document.createElement('img');
-      img.src = item.thumb;
+      img.src = assetUrl(item.thumb);
       img.width = item.width;
       img.height = item.height;
       img.alt = '';
@@ -349,7 +352,7 @@
       dialogIndex = index;
       lastTrigger = trigger;
       const item = pool[index];
-      dialogImage.src = item.display;
+      dialogImage.src = assetUrl(item.display);
       dialogImage.alt = item.alt;
       dialogImage.width = item.width;
       dialogImage.height = item.height;

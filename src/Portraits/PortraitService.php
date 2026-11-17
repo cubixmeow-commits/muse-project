@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Yatsn\Portraits;
 
 use Yatsn\Storage\LocalStorage;
+use Yatsn\Support\Config;
 use Yatsn\Support\Database;
 
 final class PortraitService
@@ -149,8 +150,8 @@ final class PortraitService
             'width' => (int) $row['width'],
             'height' => (int) $row['height'],
             'byteSize' => (int) $row['byte_size'],
-            'contentUrl' => '/api/v1/portraits/' . $row['public_id'] . '/content',
-            'thumbnailUrl' => '/api/v1/portraits/' . $row['public_id'] . '/content?thumb=1',
+            'contentUrl' => Config::basePath() . '/api/v1/portraits/' . $row['public_id'] . '/content',
+            'thumbnailUrl' => Config::basePath() . '/api/v1/portraits/' . $row['public_id'] . '/content?thumb=1',
             'createdAt' => $row['created_at'],
         ];
     }
