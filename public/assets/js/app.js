@@ -1202,7 +1202,7 @@
         const job = res.data;
         if (copyEl && job.progressStage) copyEl.textContent = job.progressStage;
         if (job.status === 'completed' && job.generatedImageId) {
-          window.location.href = `/images/${job.generatedImageId}`;
+          window.location.href = BASE_PATH + `/images/${job.generatedImageId}`;
           return;
         }
         if (job.status === 'failed') {
@@ -1290,7 +1290,7 @@
     $('[data-create-another]')?.addEventListener('click', async () => {
       try {
         const res = await api(`/api/v1/images/${imageId}/regenerations`, { method: 'POST', body: {} });
-        window.location.href = `/create?draft=${encodeURIComponent(res.data.draftId)}`;
+        window.location.href = BASE_PATH + `/create?draft=${encodeURIComponent(res.data.draftId)}`;
       } catch (err) {
         setStatus(status, err.message, true);
       }
@@ -1300,7 +1300,7 @@
       if (!confirm('Delete this image permanently? Sharing links will stop working immediately.')) return;
       try {
         await api(`/api/v1/images/${imageId}`, { method: 'DELETE', body: {} });
-        window.location.href = '/gallery';
+        window.location.href = BASE_PATH + '/gallery';
       } catch (err) {
         setStatus(status, err.message, true);
       }
@@ -1380,7 +1380,7 @@
 
     $('[data-logout-all]')?.addEventListener('click', async () => {
       await api('/api/v1/auth/logout-all', { method: 'POST', body: {} });
-      window.location.href = '/';
+      window.location.href = BASE_PATH + '/';
     });
 
     $('[data-delete-preview]')?.addEventListener('click', async () => {
@@ -1396,7 +1396,7 @@
           method: 'POST',
           body: { confirmation: new FormData(e.target).get('confirmation') },
         });
-        window.location.href = '/';
+        window.location.href = BASE_PATH + '/';
       } catch (err) {
         setStatus($('[data-account-status]'), err.message, true);
       }
@@ -1404,7 +1404,7 @@
 
     $('[data-sign-out]')?.addEventListener('click', async () => {
       await api('/api/v1/auth/logout', { method: 'POST', body: {} });
-      window.location.href = '/';
+      window.location.href = BASE_PATH + '/';
     });
   }
 
@@ -1576,7 +1576,7 @@
           method: 'POST',
           body: { email: fd.get('email'), password: fd.get('password') },
         });
-        window.location.href = '/create';
+        window.location.href = BASE_PATH + '/create';
       } catch (err) {
         setStatus(status, 'Those sign-in details did not work.', true);
       }
@@ -1596,7 +1596,7 @@
             acceptPrivacy: fd.get('acceptPrivacy') === 'on',
           },
         });
-        window.location.href = '/create';
+        window.location.href = BASE_PATH + '/create';
       } catch (err) {
         setStatus(status, err.message, true);
       }
@@ -1609,7 +1609,7 @@
           method: 'POST',
           body: { token: window.__YATSN_SIGNIN_TOKEN__ },
         });
-        window.location.href = '/create';
+        window.location.href = BASE_PATH + '/create';
       } catch (err) {
         setStatus(status, err.message || 'That link is invalid.', true);
       }
